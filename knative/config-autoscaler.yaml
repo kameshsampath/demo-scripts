@@ -1,0 +1,15 @@
+
+# The container concurrency target default is what the Autoscaler will
+# try to maintain when the Revision specifies unlimited concurrency. A
+# value of 100 is chosen because it's enough to allow vertical pod
+# autoscaling to tune resource requests. E.g. maintaining 1 concurrent
+# "hello world" request doesn't consume enough resources to allow VPA
+# to achieve efficient resource usage (VPA CPU minimum is 300m).
+data.container-concurrency-target-default: "30"
+# Scale to zero threshold is the total time between traffic dropping to
+# zero and when its resources are deprovisioned.  Must be at least 30s
+# more than scale-to-zero-grace-period (min: 60s)
+data.scale-to-zero-threshold: 1m
+# Scale to zero grace period is the time an inactive revision is left
+# running before it is scaled to zero (min: 30s).
+data.scale-to-zero-grace-period: 30s
